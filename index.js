@@ -19,6 +19,7 @@ initializePassport(passport);
 // Parses details from a form
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'css-assets')));
 app.set("view engine", "ejs");
