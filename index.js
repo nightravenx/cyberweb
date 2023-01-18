@@ -3,9 +3,7 @@ const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
-const session = require("express-session");
 const path = require('path');
-require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -25,20 +23,10 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'css-assets')));
 app.set("view engine", "ejs");
 
-app.use(
-  session({
-    // Key we want to keep secret which will encrypt all of our information
-    secret: process.env.SESSION_SECRET,
-    // Should we resave our session variables if nothing has changes which we dont
-    resave: false,
-    // Save empty value if there is no vaue which we do not want to do
-    saveUninitialized: false
-  })
-);
+
 // Funtion inside passport which initializes passport
 app.use(passport.initialize());
 // Store our variables to be persisted across the whole session. Works with app.use(Session) above
-app.use(passport.session());
 app.use(flash());
 
 //app.get("/", (req, res) => {
@@ -63,7 +51,7 @@ app.get("/views/dashboard", checkNotAuthenticated, (req, res) => {
   res.render("dashboard", { user: req.user.username });
 });
 
-app.get("/users/logout", (req, res,next) => {
+
   //req.logout();
   //res.render("index", { message: "You have logged out successfully" });
   //res.redirect("/");
@@ -73,16 +61,6 @@ app.get("/users/logout", (req, res,next) => {
     //res.render("index", { message: "You have logged out successfully" });
     //res.redirect("/");
   //});
-
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    // if you're using express-flash
-    req.flash('success_msg', 'Session terminated');
-    res.redirect("/");
-  });
-});
 
 
 app.post(
