@@ -27,7 +27,7 @@ app.set("view engine", "ejs");
 // Funtion inside passport which initializes passport
 app.use(passport.initialize());
 // Store our variables to be persisted across the whole session. Works with app.use(Session) above
-app.use(flash());
+//app.use(flash());
 
 //app.get("/", (req, res) => {
     //res.render("index");
