@@ -88,7 +88,7 @@ app.get("/users/logout", (req, res,next) => {
 app.post(
   "/",
   passport.authenticate("local", {
-    successRedirect: encodeURI("/views/dashboard"), // This is the one that will shown in URL box
+    successRedirect: "/views/dashboard", // This is the one that will shown in URL box
     failureRedirect: "/",
     session: false
   })
